@@ -10,7 +10,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
     <module name="LeviathanStudios_Scheduler" setup_version="1.0.0">
         <sequence>
-            <module name="LeviathanStudios_Core" />
+            <module name="Magento_Email" />
         </sequence>
     </module>
 </config>
