@@ -10,6 +10,11 @@ namespace LeviathanStudios\Scheduler\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
+/**
+ * Class EventRequest
+ *
+ * @package LeviathanStudios\Scheduler\Model\ResourceModel
+ */
 class EventRequest extends AbstractDb
 {
     const EVENT_TABLE = 'leviathan_event_request';

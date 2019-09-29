@@ -27,7 +27,7 @@ interface EventRequestInterface
     const DATE        = 'date';
 
     /**
-     * Get row id.
+     * Get the row id.
      *
      * @return int|null
      */
@@ -69,7 +69,7 @@ interface EventRequestInterface
     public function getTelephone();
 
     /**
-     * Get customer email address.
+     * Get the customer email address.
      *
      * @return string|null
      */
@@ -97,7 +97,7 @@ interface EventRequestInterface
     public function getDate();
 
     /**
-     * Get row id.
+     * Set the row id.
      *
      * @param $entityId
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
@@ -113,7 +113,7 @@ interface EventRequestInterface
     public function setType($type);
 
     /**
-     * Set customer id.
+     * Set the customer id.
      *
      * @param $id
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
@@ -137,7 +137,7 @@ interface EventRequestInterface
     public function setName($name);
 
     /**
-     * Set customer telephone.
+     * Set the customer telephone.
      *
      * @param $telephone
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface

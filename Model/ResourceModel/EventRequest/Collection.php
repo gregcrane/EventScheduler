@@ -10,6 +10,11 @@ namespace LeviathanStudios\Scheduler\Model\ResourceModel\EventRequest;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
 
+/**
+ * Class Collection
+ *
+ * @package LeviathanStudios\Scheduler\Model\ResourceModel\EventRequest
+ */
 class Collection extends AbstractCollection
 {
     /**

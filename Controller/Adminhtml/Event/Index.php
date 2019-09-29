@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Scheduler;
+namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -18,7 +18,7 @@ use Magento\Framework\View\Result\PageFactory;
 /**
  * Class Index
  *
- * @package LeviathanStudios\Scheduler\Controller\Adminhtml\Scheduler
+ * @package LeviathanStudios\Scheduler\Controller\Adminhtml\Event
  */
 class Index extends Action
 {

@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * @package     LeviathanStudios/Scheduler
+  * @version     1.0.0
+  * @author      Greg Crane <gmc31886@gmail.com>
+  */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--admin grid ui component setup: link up collection, table and resource model to the list component.-->
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="event_request_list_data_source"
+                      xsi:type="string">LeviathanStudios\Scheduler\Model\ResourceModel\EventRequest\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Ui\DataProvider\AbstractDataProvider">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="event_request_form_data_source"
+                      xsi:type="string">LeviathanStudios\Scheduler\Model\ResourceModel\EventRequest\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="LeviathanStudios\Scheduler\Model\ResourceModel\EventRequest\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">leviathan_event_request</argument>
+            <argument name="resourceModel"
+                      xsi:type="string">LeviathanStudios\Scheduler\Model\ResourceModel\EventRequest</argument>
+        </arguments>
+    </virtualType>
+
+    <!--link the api class to the concrete models for event requests-->
+    <preference for="LeviathanStudios\Scheduler\Api\EventRequestRepositoryInterface"
+                type="LeviathanStudios\Scheduler\Model\EventRequestRepository"/>
+    <preference for="LeviathanStudios\Scheduler\Api\Data\EventRequestInterface"
+                type="LeviathanStudios\Scheduler\Model\EventRequest"/>
+    <preference for="LeviathanStudios\Scheduler\Api\Data\EventRequestResultInterface"
+                type="LeviathanStudios\Scheduler\Model\EventRequestSearchResult"/>
+
+    <!--link the api class to the concrete models for approved events-->
+    <preference for="LeviathanStudios\Scheduler\Api\ApprovedEventRepositoryInterface"
+                type="LeviathanStudios\Scheduler\Model\ApprovedEventRepository"/>
+    <preference for="LeviathanStudios\Scheduler\Api\Data\ApprovedEventInterface"
+                type="LeviathanStudios\Scheduler\Model\ApprovedEvent"/>
+    <preference for="LeviathanStudios\Scheduler\Api\Data\ApprovedEventResultInterface"
+                type="LeviathanStudios\Scheduler\Model\ApprovedEventSearchResult"/>
+</config>

@@ -10,6 +10,11 @@ namespace LeviathanStudios\Scheduler\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
+/**
+ * Class ApprovedEvent
+ *
+ * @package LeviathanStudios\Scheduler\Model\ResourceModel
+ */
 class ApprovedEvent extends AbstractDb
 {
     const APPROVED_TABLE = 'leviathan_event_approved';
