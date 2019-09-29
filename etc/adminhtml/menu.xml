@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+  * @package     LeviathanStudios/Scheduler
+  * @version     1.0.0
+  * @author      Greg Crane <gmc31886@gmail.com>
+  */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="LeviathanStudios_Scheduler::container"
+             title="Scheduler"
+             module="LeviathanStudios_Scheduler"
+             sortOrder="45"
+             resource="LeviathanStudios_Scheduler::scheduler"/>
+        <add id="LeviathanStudios_Scheduler::post"
+             title="Manage Schedule"
+             module="LeviathanStudios_Scheduler"
+             sortOrder="0"
+             action="scheduler/event/index"
+             resource="LeviathanStudios_Scheduler::scheduler"
+             parent="LeviathanStudios_Scheduler::container"/>
+    </menu>
+</config>

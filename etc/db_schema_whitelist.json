@@ -1,0 +1,31 @@
+{
+    "leviathan_event_request": {
+        "column": {
+            "entity_id": true,
+            "type": true,
+            "customer_id": true,
+            "status": true,
+            "name": true,
+            "last_name": true,
+            "email": true,
+            "telephone": true,
+            "date": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "LEVIATHAN_EVENT_REQUEST_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    },
+    "leviathan_event_approved": {
+        "column": {
+            "entity_id": true,
+            "type": true,
+            "name": true,
+            "email": true,
+            "date": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
