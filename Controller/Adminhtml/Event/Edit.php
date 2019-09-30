@@ -67,7 +67,6 @@ class Edit extends Action implements HttpGetActionInterface
      */
     public function execute()
     {
-
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         return $resultPage;

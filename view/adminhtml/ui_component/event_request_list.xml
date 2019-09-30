@@ -133,7 +133,9 @@
             </settings>
         </column>
 
-        <actionsColumn name="actions" class="LeviathanStudios\RequestContact\Ui\Component\Listing\Column\EstimateActions" sortOrder="220">
+        <actionsColumn name="actions"
+                       class="LeviathanStudios\RequestContact\Ui\Component\Listing\Column\EstimateActions"
+                       sortOrder="220">
             <settings>
                 <indexField>entity_id</indexField>
             </settings>
