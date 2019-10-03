@@ -25,6 +25,7 @@ interface EventRequestInterface
     const START_TIME  = 'start_time';
     const END_TIME    = 'end_time';
     const DATE        = 'date';
+    const MESSAGE     = 'message';
 
     /**
      * Get the row id.
@@ -95,6 +96,13 @@ interface EventRequestInterface
      * @return mixed
      */
     public function getDate();
+
+    /**
+     * Get the customer optional message.
+     *
+     * @return string|null
+     */
+    public function getMessage();
 
     /**
      * Set the row id.
@@ -175,4 +183,12 @@ interface EventRequestInterface
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
      */
     public function setDate($date);
+
+    /**
+     * Set the customer optional message.
+     *
+     * @param $message
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setMessage($message);
 }

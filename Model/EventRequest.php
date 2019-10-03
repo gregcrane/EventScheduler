@@ -147,6 +147,16 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     }
 
     /**
+     * Get Message.
+     *
+     * @return mixed|string|null
+     */
+    public function getMessage()
+    {
+        return parent::getData(self::MESSAGE);
+    }
+
+    /**
      * Set the row id.
      *
      * @param $entityId
@@ -255,5 +265,16 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     public function setDate($date)
     {
         return $this->setData(self::DATE, $date);
+    }
+
+    /**
+     * Set the customer message.
+     *
+     * @param $message
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setMessage($message)
+    {
+        return $this->setData(self::MESSAGE, $message);
     }
 }

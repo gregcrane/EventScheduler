@@ -9,7 +9,8 @@
             "last_name": true,
             "email": true,
             "telephone": true,
-            "date": true
+            "date": true,
+            "message": true
         },
         "constraint": {
             "PRIMARY": true,

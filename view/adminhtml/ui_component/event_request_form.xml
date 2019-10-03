@@ -42,7 +42,7 @@
             <submitUrl path="scheduler/event/save"/>
         </settings>
         <aclResource>LeviathanStudios_Scheduler::scheduler</aclResource>
-        <dataProvider class="Magento\Ui\DataProvider\AbstractDataProvider"
+        <dataProvider class="LeviathanStudios\Scheduler\Ui\Component\DataSource\Event\Form\DataProvider"
                       name="event_request_form_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>

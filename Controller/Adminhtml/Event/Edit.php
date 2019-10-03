@@ -8,6 +8,9 @@ declare(strict_types=1);
 
 namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
 
+use LeviathanStudios\Scheduler\Api\EventRequestRepositoryInterface;
+use LeviathanStudios\Scheduler\Model\EventRequest;
+use LeviathanStudios\Scheduler\Model\EventRequestFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
@@ -19,7 +22,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
- * Class Edit
+ * Edit controller class used for setting up a blank or populated admin form.
  *
  * @package LeviathanStudios\Scheduler\Controller\Adminhtml\Event
  */
@@ -30,7 +33,7 @@ class Edit extends Action implements HttpGetActionInterface
      *
      * @see _isAllowed()
      */
-    const ADMIN_RESOURCE = 'LeviathanStudios_RequestContact::estimate';
+    const ADMIN_RESOURCE = 'LeviathanStudios_Scheduler::scheduler';
 
     /**
      * @var JsonFactory $resultJsonFactory
@@ -43,32 +46,60 @@ class Edit extends Action implements HttpGetActionInterface
     private $resultPageFactory;
 
     /**
-     * Edit constructor.
-     *
-     * @param Action\Context $context
-     * @param PageFactory    $resultPageFactory
-     * @param JsonFactory    $resultJsonFactory
+     * @var EventRequestRepositoryInterface $eventRepository
+     */
+    private $eventRepository;
+
+    /**
+     * @var EventRequestFactory $eventFactory
+     */
+    private $eventFactory;
+
+    /**
+     * @param Action\Context                  $context
+     * @param PageFactory                     $resultPageFactory
+     * @param JsonFactory                     $resultJsonFactory
+     * @param EventRequestRepositoryInterface $eventRepository
+     * @param EventRequestFactory             $eventFactory
      */
     public function __construct(
         Action\Context $context,
         PageFactory $resultPageFactory,
-        JsonFactory $resultJsonFactory
-
+        JsonFactory $resultJsonFactory,
+        EventRequestRepositoryInterface $eventRepository,
+        EventRequestFactory $eventFactory
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->resultJsonFactory = $resultJsonFactory;
+        $this->eventRepository   = $eventRepository;
+        $this->eventFactory      = $eventFactory;
     }
 
     /**
-     * Execution action.
-     *
      * @return Page|Redirect|FrameworkResponse|ResultInterface
+     * @throws NoSuchEntityException
      */
     public function execute()
     {
+        if ($id = $this->getRequest()->getParam('entity_id')) {
+            /** @var EventRequest $model */
+            $model = $this->eventRepository->getById($id);
+            if (!$model->getId()) {
+                $this->messageManager->addErrorMessage(__('This event no longer exists.'));
+                /** @var Redirect $resultRedirect */
+                $resultRedirect = $this->resultRedirectFactory->create();
+                return $resultRedirect->setPath('*/*/');
+            }
+        }
+
         /** @var Page $resultPage */
-        $resultPage = $this->resultPageFactory->create();
+        $resultPage      = $this->resultPageFactory->create();
+        $resultPageTitle = $id ? __('Edit Event') : __('New Event');
+        $resultPage->setActiveMenu('LeviathanStudios_Scheduler::container');
+        $resultPage->getConfig()->getTitle()->prepend($resultPageTitle);
+        $resultPage->addBreadcrumb(__('Manage Events'), __('Manage Events'));
+
         return $resultPage;
     }
 }
