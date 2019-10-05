@@ -1,8 +1,7 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
@@ -11,9 +10,9 @@ namespace LeviathanStudios\Scheduler\Api\Data;
 use Magento\Framework\Api\SearchResultsInterface;
 
 /**
- * Interface EventRequestResultInterface
+ * Data model representing a search result of events.
  *
- * @package LeviathanStudios\Scheduler\Api\Data
+ * @api
  */
 interface EventRequestResultInterface extends SearchResultsInterface
 {

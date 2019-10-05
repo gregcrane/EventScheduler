@@ -5,7 +5,7 @@
  */
 declare(strict_types=1);
 
-namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
+namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Calendar;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -15,9 +15,7 @@ use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
- * Class Index
- *
- * @package LeviathanStudios\Scheduler\Controller\Adminhtml\Event
+ * Base index controller for the calendar admin page.
  */
 class Index extends Action
 {
@@ -51,7 +49,7 @@ class Index extends Action
     public function execute()
     {
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->getConfig()->getTitle()->prepend((__('Event Scheduler')));
+        $resultPage->getConfig()->getTitle()->prepend((__('Event Calendar')));
 
         return $resultPage;
     }

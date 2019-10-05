@@ -1,12 +1,11 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
-namespace LeviathanStudios\Scheduler\Model;
+namespace LeviathanStudios\Scheduler\Model\Repository;
 
 use Magento\Framework\Api\DataObjectHelper;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
@@ -21,8 +20,6 @@ use LeviathanStudios\Scheduler\Model\ResourceModel\EventRequest\CollectionFactor
 
 /**
  * Class EventRequestRepository
- *
- * @package LeviathanStudios\Scheduler\Model
  */
 class ApprovedEventRepository
 {

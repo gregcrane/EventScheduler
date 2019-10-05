@@ -1,9 +1,5 @@
 <?php
-/**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
- */
+
 declare(strict_types=1);
 
 namespace LeviathanStudios\Scheduler\Model;
@@ -22,8 +18,13 @@ use Magento\Framework\Model\AbstractModel;
  */
 class ApprovedEvent extends AbstractModel implements ApprovedEventInterface, IdentityInterface
 {
+    /** @var string */
     const CACHE_TAG = 'leviathanstudios_approved_event';
+
+    /** @var string */
     protected $_cacheTag = 'leviathanstudios_approved_event';
+
+    /** @var string */
     protected $_eventPrefix = 'leviathanstudios_approved_event';
 
     /**

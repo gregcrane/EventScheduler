@@ -1,8 +1,7 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
@@ -17,6 +16,9 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
  */
 class ApprovedEvent extends AbstractDb
 {
+    /**
+     * @var string
+     */
     const APPROVED_TABLE = 'leviathan_event_approved';
 
     /**
@@ -24,7 +26,7 @@ class ApprovedEvent extends AbstractDb
      *
      * @return void
      */
-    protected function _construct()
+    protected function _construct(): void
     {
         $this->_init($this::APPROVED_TABLE, 'entity_id');
     }

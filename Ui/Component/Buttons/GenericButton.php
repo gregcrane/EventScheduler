@@ -1,8 +1,7 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
@@ -18,8 +17,6 @@ use Magento\Framework\UrlInterface;
  * Class GenericButton
  *
  * Class for common code for buttons on the create/edit event form
- *
- * @package LeviathanStudios\Scheduler\Ui\Component\Buttons
  */
 class GenericButton
 {

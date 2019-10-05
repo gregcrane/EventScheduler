@@ -1,8 +1,7 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
@@ -23,8 +22,6 @@ use Magento\Framework\View\Result\PageFactory;
 
 /**
  * Edit controller class used for setting up a blank or populated admin form.
- *
- * @package LeviathanStudios\Scheduler\Controller\Adminhtml\Event
  */
 class Edit extends Action implements HttpGetActionInterface
 {
@@ -35,24 +32,16 @@ class Edit extends Action implements HttpGetActionInterface
      */
     const ADMIN_RESOURCE = 'LeviathanStudios_Scheduler::scheduler';
 
-    /**
-     * @var JsonFactory $resultJsonFactory
-     */
+    /** @var JsonFactory $resultJsonFactory */
     private $resultJsonFactory;
 
-    /**
-     * @var PageFactory $resultPageFactory
-     */
+    /** @var PageFactory $resultPageFactory */
     private $resultPageFactory;
 
-    /**
-     * @var EventRequestRepositoryInterface $eventRepository
-     */
+    /** @var EventRequestRepositoryInterface $eventRepository */
     private $eventRepository;
 
-    /**
-     * @var EventRequestFactory $eventFactory
-     */
+    /** @var EventRequestFactory $eventFactory */
     private $eventFactory;
 
     /**
@@ -77,15 +66,23 @@ class Edit extends Action implements HttpGetActionInterface
     }
 
     /**
+     * Load the event edit form page.
+     *
      * @return Page|Redirect|FrameworkResponse|ResultInterface
-     * @throws NoSuchEntityException
      */
     public function execute()
     {
         if ($id = $this->getRequest()->getParam('entity_id')) {
-            /** @var EventRequest $model */
-            $model = $this->eventRepository->getById($id);
-            if (!$model->getId()) {
+            try {
+                /** @var EventRequest $model */
+                $model = $this->eventRepository->getById($id);
+                if (!$model->getId()) {
+                    $this->messageManager->addErrorMessage(__('This event no longer exists.'));
+                    /** @var Redirect $resultRedirect */
+                    $resultRedirect = $this->resultRedirectFactory->create();
+                    return $resultRedirect->setPath('*/*/');
+                }
+            } catch (NoSuchEntityException $exception) {
                 $this->messageManager->addErrorMessage(__('This event no longer exists.'));
                 /** @var Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();

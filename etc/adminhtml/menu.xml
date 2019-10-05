@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <!--
 /**
-  * @package     LeviathanStudios/Scheduler
-  * @version     1.0.0
-  * @author      Greg Crane <gmc31886@gmail.com>
+  * @copyright     Copyright © Leviathan Studios, Licensed under MIT
+  * @author        Grey Crane <gmc31886@gmail.com>
   */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,10 +14,17 @@
              sortOrder="45"
              resource="LeviathanStudios_Scheduler::scheduler"/>
         <add id="LeviathanStudios_Scheduler::post"
-             title="Manage Schedule"
+             title="Manage Events"
              module="LeviathanStudios_Scheduler"
              sortOrder="0"
              action="scheduler/event/index"
+             resource="LeviathanStudios_Scheduler::scheduler"
+             parent="LeviathanStudios_Scheduler::container"/>
+        <add id="LeviathanStudios_Scheduler::calendar"
+             title="View Calendar"
+             module="LeviathanStudios_Scheduler"
+             sortOrder="0"
+             action="scheduler/calendar/index"
              resource="LeviathanStudios_Scheduler::scheduler"
              parent="LeviathanStudios_Scheduler::container"/>
     </menu>

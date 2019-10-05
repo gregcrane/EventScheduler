@@ -1,8 +1,7 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
@@ -13,12 +12,10 @@ use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Model\AbstractModel;
 
 /**
- * Class EventRequest
+ * Data model class for a events.
  *
  * Model class used for the manipulation of the event request data. This data will only be
  * around for a finite amount of time for more efficient queries.
- *
- * @package LeviathanStudios\Scheduler\Model
  */
 class EventRequest extends AbstractModel implements EventRequestInterface, IdentityInterface
 {

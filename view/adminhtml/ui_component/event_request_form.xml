@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 /**
-  * @package     LeviathanStudios/Scheduler
-  * @version     1.0.0
-  * @author      Greg Crane <gmc31886@gmail.com>
+  * @copyright     Copyright © Leviathan Studios, Licensed under MIT
+  * @author        Grey Crane <gmc31886@gmail.com>
   */
 -->
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -74,7 +73,24 @@
             </settings>
         </field>
 
-        <field name="status"  sortOrder="20" formElement="select">
+        <field name="type"  sortOrder="20" formElement="select">
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Type</label>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="LeviathanStudios\Scheduler\Model\Config\Source\EventType"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+
+        <field name="status"  sortOrder="30" formElement="select">
             <settings>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
@@ -91,7 +107,18 @@
             </formElements>
         </field>
 
-        <field name="email" sortOrder="30" formElement="input">
+        <field name="name" sortOrder="40" formElement="input">
+            <settings>
+                <dataType>text</dataType>
+                <visible>true</visible>
+                <label translate="true">Name</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+
+        <field name="email" sortOrder="50" formElement="input">
             <settings>
                 <dataType>text</dataType>
                 <visible>true</visible>
@@ -102,15 +129,57 @@
             </settings>
         </field>
 
-        <field name="name" sortOrder="40" formElement="input">
+        <field name="telephone" sortOrder="60" formElement="input">
             <settings>
                 <dataType>text</dataType>
                 <visible>true</visible>
-                <label translate="true">Customer Name</label>
+                <label translate="true">Phone</label>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
                 </validation>
             </settings>
+        </field>
+
+        <field name="start_time">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">Start Time</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">70</item>
+                    <item name="dataScope" xsi:type="string">start_time</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="end_time">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="label" xsi:type="string" translate="true">End Time</item>
+                    <item name="formElement" xsi:type="string">date</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">80</item>
+                    <item name="dataScope" xsi:type="string">end_time</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="options" xsi:type="array">
+                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="showsTime" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
         </field>
     </fieldset>
 </form>

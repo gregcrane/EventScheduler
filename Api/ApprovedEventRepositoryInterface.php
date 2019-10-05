@@ -1,8 +1,7 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
@@ -12,9 +11,9 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 use LeviathanStudios\Scheduler\Api\Data\ApprovedEventInterface;
 
 /**
- * Interface ApprovedEventRepositoryInterface
+ * Service contract for adding, removing, and retrieving approved events.
  *
- * @package LeviathanStudios\Scheduler\Api
+ * @api
  */
 interface ApprovedEventRepositoryInterface
 {

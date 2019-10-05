@@ -1,24 +1,22 @@
 <?php
 /**
- * @package     LeviathanStudios/Scheduler
- * @version     1.0.0
- * @author      Greg Crane <gmc31886@gmail.com>
+ * @copyright   Copyright © Leviathan Studios, Licensed under MIT
+ * @author      Grey Crane <gmc31886@gmail.com>
  */
 declare(strict_types=1);
 
 namespace LeviathanStudios\Scheduler\Api;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
-use LeviathanStudios\Scheduler\Api\Data\EventRequestInterface;
-
 /**
- * Interface EventRequestRepositoryInterface
+ * Service contract for adding, removing, and retrieving events.
  *
- * @package LeviathanStudios\Scheduler\Api
+ * @api
  */
 interface EventRequestRepositoryInterface
 {
     /**
+     * Get an event by ID.
+     *
      * @param int $id
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
      * @throws \Magento\Framework\Exception\NoSuchEntityException
@@ -26,20 +24,47 @@ interface EventRequestRepositoryInterface
     public function getById($id);
 
     /**
+     * Return a list of events matching search criteria.
+     *
+     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestResultInterface
+     * @throws \Magento\Framework\Exception\CouldNotDeleteException
+     */
+    public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
+
+    /**
+     * Save an event.
+     *
      * @param \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface $request
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function save(EventRequestInterface $request);
+    public function save(\LeviathanStudios\Scheduler\Api\Data\EventRequestInterface $request);
 
     /**
+     * Delete an event.
+     *
      * @param \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface $request
-     * @return void
+     * @return bool
+     * @throws \Magento\Framework\Exception\CouldNotDeleteException
      */
-    public function delete(EventRequestInterface $request);
+    public function delete(\LeviathanStudios\Scheduler\Api\Data\EventRequestInterface $request);
 
     /**
+     * Delete multiple events matching search criteria.
+     *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \LeviathanStudios\Scheduler\Api\Data\EstimateSearchResultInterface
+     * @return bool
+     * @throws \Magento\Framework\Exception\CouldNotDeleteException
      */
-    public function getList(SearchCriteriaInterface $searchCriteria);
+    public function deleteMultiple(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
+
+    /**
+     * Delete an event by ID.
+     *
+     * @param int $eventId
+     * @return bool true on success
+     * @throws \Magento\Framework\Exception\CouldNotDeleteException
+     */
+    public function deleteById($eventId);
 }

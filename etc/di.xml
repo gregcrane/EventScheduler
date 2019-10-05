@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 <!--
 /**
-  * @package     LeviathanStudios/Scheduler
-  * @version     1.0.0
-  * @author      Greg Crane <gmc31886@gmail.com>
+  * @copyright     Copyright © Leviathan Studios, Licensed under MIT
+  * @author        Grey Crane <gmc31886@gmail.com>
   */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -36,7 +35,7 @@
 
     <!--link the api class to the concrete models for event requests-->
     <preference for="LeviathanStudios\Scheduler\Api\EventRequestRepositoryInterface"
-                type="LeviathanStudios\Scheduler\Model\EventRequestRepository"/>
+                type="LeviathanStudios\Scheduler\Model\Repository\EventRequestRepository"/>
     <preference for="LeviathanStudios\Scheduler\Api\Data\EventRequestInterface"
                 type="LeviathanStudios\Scheduler\Model\EventRequest"/>
     <preference for="LeviathanStudios\Scheduler\Api\Data\EventRequestResultInterface"
@@ -44,7 +43,7 @@
 
     <!--link the api class to the concrete models for approved events-->
     <preference for="LeviathanStudios\Scheduler\Api\ApprovedEventRepositoryInterface"
-                type="LeviathanStudios\Scheduler\Model\ApprovedEventRepository"/>
+                type="LeviathanStudios\Scheduler\Model\Repository\ApprovedEventRepository"/>
     <preference for="LeviathanStudios\Scheduler\Api\Data\ApprovedEventInterface"
                 type="LeviathanStudios\Scheduler\Model\ApprovedEvent"/>
     <preference for="LeviathanStudios\Scheduler\Api\Data\ApprovedEventResultInterface"
