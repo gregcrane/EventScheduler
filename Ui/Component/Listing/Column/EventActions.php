@@ -13,16 +13,12 @@ use Magento\Ui\Component\Listing\Columns\Column;
 use Magento\Framework\UrlInterface;
 
 /**
- * Class EstimateActions
- *
- * @package LeviathanStudios\Scheduler\Ui\Component\Listing\Column
+ * Event column actions class.
  */
-class EstimateActions extends Column
+class EventActions extends Column
 {
-    /**
-     * @var UrlInterface
-     */
-    protected $urlBuilder;
+    /** @var UrlInterface $urlBuilder */
+    private $urlBuilder;
 
     /**
      * @param ContextInterface   $context
@@ -43,12 +39,12 @@ class EstimateActions extends Column
     }
 
     /**
-     * Prepare Data Source
+     * Prepare Data Source and populate grid item action links.
      *
      * @param array $dataSource
      * @return array
      */
-    public function prepareDataSource(array $dataSource)
+    public function prepareDataSource(array $dataSource): array
     {
         if (isset($dataSource['data']['items'])) {
             $storeId = $this->context->getFilterParam('store_id');

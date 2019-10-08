@@ -8,6 +8,8 @@ declare(strict_types=1);
 namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
 
 use LeviathanStudios\Scheduler\Api\EventRequestRepositoryInterface;
+use LeviathanStudios\Scheduler\Model\Config\Source\EventStatus;
+use LeviathanStudios\Scheduler\Model\EventRequest;
 use LeviathanStudios\Scheduler\Model\EventRequestFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
@@ -20,7 +22,7 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
- * Save controller class used to save the event data.
+ * Controller responsible for saving and event.
  */
 class Save extends Action
 {
@@ -77,6 +79,10 @@ class Save extends Action
         if ($data) {
             $data = $this->filterData($data);
 
+            if (!$this->dateCheck()) {
+
+            }
+
             if ($id = $this->getRequest()->getParam('entity_id')) {
                 try {
                     $model = $this->eventRepository->getById($id);
@@ -85,6 +91,7 @@ class Save extends Action
                     return $resultRedirect->setPath('*/*/');
                 }
             } else {
+                /** @var EventRequest $model */
                 $model = $this->eventFactory->create();
             }
 
@@ -115,17 +122,26 @@ class Save extends Action
      * Massage the post data into an acceptable format.
      *
      * @param $postData
-     * @return mixed
+     * @return array
      */
-    private function filterData($postData)
+    private function filterData($postData): array
     {
         if (empty($data['entity_id'])) {
             $postData['entity_id'] = null;
         }
 
         if (empty($data['customer_id'])) {
-            $postData['customer_id'] = $this->getCustomerId($data);
+            $postData['customer_id'] = $this->getCustomerId($postData);
         }
+
+        if (key_exists('type', $postData) && $postData['type'] == 'class') {
+            $postData['email']     = 'N/A';
+            $postData['telephone'] = 'N/A';
+            $postData['status']    = EventStatus::CLASS_STATUS;
+            $postData['weekday']   = date('l', strtotime($postData['start_time']));
+        }
+
+        $postData['date'] = getDate($postData['start_time']);
 
         return $postData;
     }
@@ -133,17 +149,17 @@ class Save extends Action
     /**
      * Get the customer ID if there is a match.
      *
-     * @param $data
+     * @param $postData
      * @return int|null
      */
-    private function getCustomerId($data)
+    private function getCustomerId($postData)
     {
         $customerId = null;
 
-        if ($data['email']) {
+        if ($postData['email']) {
             try {
                 /** @var CustomerInterface $customer */
-                $customer   = $this->customerRepository->get($data['email']);
+                $customer   = $this->customerRepository->get($postData['email']);
                 $customerId = $customer->getId();
             } catch (\Exception $e) {
                 // do nothing, there was no match.
@@ -151,5 +167,22 @@ class Save extends Action
         }
 
         return $customerId;
+    }
+
+    /**
+     * Determine if the start and end dates coincide.
+     *
+     * @param $postData
+     * @return bool
+     */
+    private function dateCheck($postData): bool
+    {
+        $flag = true;
+        if (key_exists('start_time', $postData) && key_exists('end_time', $postData)) {
+            $start = getDate($postData['start_time']);
+            $end   = getDate($postData['end_time']);
+        }
+
+        return $flag;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<!--
+<!--
 /**
   * @copyright     Copyright © Leviathan Studios, Licensed under MIT
   * @author        Grey Crane <gmc31886@gmail.com>
@@ -133,7 +133,7 @@
         </column>
 
         <actionsColumn name="actions"
-                       class="LeviathanStudios\RequestContact\Ui\Component\Listing\Column\EstimateActions"
+                       class="LeviathanStudios\Scheduler\Ui\Component\Listing\Column\EventActions"
                        sortOrder="220">
             <settings>
                 <indexField>entity_id</indexField>

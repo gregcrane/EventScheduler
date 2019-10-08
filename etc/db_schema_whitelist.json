@@ -10,7 +10,8 @@
             "email": true,
             "telephone": true,
             "date": true,
-            "message": true
+            "message": true,
+            "weekday": true
         },
         "constraint": {
             "PRIMARY": true,

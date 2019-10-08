@@ -24,6 +24,7 @@
         <column xsi:type="datetime" name="end_time" nullable="false" default="CURRENT_TIMESTAMP" comment="End Time"/>
         <column xsi:type="date" name="date" nullable="false" comment="Date"/>
         <column xsi:type="text" name="message" nullable="true" comment="Customer Message"/>
+        <column xsi:type="text" name="weekday" nullable="true" comment="Weekday"/>
 
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="entity_id"/>

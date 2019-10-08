@@ -11,20 +11,21 @@ namespace LeviathanStudios\Scheduler\Model\Config\Source;
 use Magento\Framework\Data\OptionSourceInterface;
 
 /**
- * Class MobileGrids
- *
- * @package LeviathanStudios\Scheduler\Model\Config\Source
+ * Model class that houses the different status values and labels.
  */
 class EventStatus implements OptionSourceInterface
 {
+    const CLASS_STATUS = 4;
+
     /**
-     * {@inheritdoc}
+     * Return an array of status values.
      *
-     * @codeCoverageIgnore
+     * @return array
      */
     public function toOptionArray()
     {
         return [
+            ['value' => ' ', 'label' => 'Please Select a Status'],
             ['value' => 0, 'label' => __('Created')],
             ['value' => 1, 'label' => __('Viewed')],
             ['value' => 2, 'label' => __('Accepted')],

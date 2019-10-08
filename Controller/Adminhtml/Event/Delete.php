@@ -7,17 +7,19 @@ declare(strict_types=1);
 
 namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
 
+use LeviathanStudios\Scheduler\Api\EventRequestRepositoryInterface;
+use LeviathanStudios\Scheduler\Model\EventRequestFactory;
 use Magento\Backend\App\Action;
-use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\App\ResponseInterface as FrameworkResponse;
+use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
 
-
+/**
+ * Controller responsible for deleting and event.
+ */
 class Delete extends Action implements HttpGetActionInterface
 {
     /**
@@ -27,43 +29,57 @@ class Delete extends Action implements HttpGetActionInterface
      */
     const ADMIN_RESOURCE = 'LeviathanStudios_Scheduler::scheduler';
 
-    /**
-     * @var JsonFactory $resultJsonFactory
-     */
+    /** @var JsonFactory $resultJsonFactory */
     private $resultJsonFactory;
 
-    /**
-     * @var PageFactory $resultPageFactory
-     */
+    /** @var PageFactory $resultPageFactory */
     private $resultPageFactory;
 
+    /** @var EventRequestRepositoryInterface $eventRepository */
+    private $eventRepository;
+
+    /** @var EventRequestFactory $eventFactory */
+    private $eventFactory;
+
     /**
-     * Edit constructor.
-     *
-     * @param Action\Context $context
-     * @param PageFactory    $resultPageFactory
-     * @param JsonFactory    $resultJsonFactory
+     * @param Action\Context                  $context
+     * @param PageFactory                     $resultPageFactory
+     * @param JsonFactory                     $resultJsonFactory
+     * @param EventRequestRepositoryInterface $eventRepository
+     * @param EventRequestFactory             $eventFactory
      */
     public function __construct(
         Action\Context $context,
         PageFactory $resultPageFactory,
-        JsonFactory $resultJsonFactory
-
+        JsonFactory $resultJsonFactory,
+        EventRequestRepositoryInterface $eventRepository,
+        EventRequestFactory $eventFactory
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->resultJsonFactory = $resultJsonFactory;
+        $this->eventRepository   = $eventRepository;
+        $this->eventFactory      = $eventFactory;
     }
 
     /**
-     * Execution action.
+     * Delete the selected event.
      *
-     * @return Page|Redirect|FrameworkResponse|ResultInterface
+     * @return Redirect|ResponseInterface|ResultInterface
      */
     public function execute()
     {
-        /** @var Page $resultPage */
-        $resultPage = $this->resultPageFactory->create();
-        return $resultPage;
+        /** @var Redirect $resultRedirect */
+        $resultRedirect = $this->resultRedirectFactory->create();
+        if ($id = $this->getRequest()->getParam('entity_id')) {
+            try {
+                $this->eventRepository->deleteById($id);
+                $this->messageManager->addSuccessMessage(__('This event has been successfully deleted.'));
+            } catch (\Exception $e) {
+                $this->messageManager->addErrorMessage(__('An error has occurred please try again.'));
+            }
+        }
+
+        return $resultRedirect->setPath('*/*/');
     }
 }

@@ -73,7 +73,16 @@
             </settings>
         </field>
 
-        <field name="type"  sortOrder="20" formElement="select">
+        <field name="type"
+               sortOrder="20"
+               formElement="select"
+               component="LeviathanStudios_Scheduler/js/components/dependent-select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dependentFields" xsi:type="string">email,telephone,message</item>
+                    <item name="triggerValue" xsi:type="string">class</item>
+                </item>
+            </argument>
             <settings>
                 <validation>
                     <rule name="required-entry" xsi:type="boolean">true</rule>
@@ -180,6 +189,14 @@
                     </item>
                 </item>
             </argument>
+        </field>
+
+        <field name="message" sortOrder="90" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Message</label>
+                <visible>true</visible>
+            </settings>
         </field>
     </fieldset>
 </form>

@@ -11,20 +11,19 @@ namespace LeviathanStudios\Scheduler\Model\Config\Source;
 use Magento\Framework\Data\OptionSourceInterface;
 
 /**
- * Class MobileGrids
- *
- * @package LeviathanStudios\Scheduler\Model\Config\Source
+ * Model class that houses the different type values and labels.
  */
 class EventType implements OptionSourceInterface
 {
     /**
-     * {@inheritdoc}
+     * Return an array of type values.
      *
-     * @codeCoverageIgnore
+     * @return array
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return [
+            ['value' => ' ', 'label' => 'Please Select a Type'],
             ['value' => 'class', 'label' => __('Class')],
             ['value' => 'training_session', 'label' => __('Personal Training Session')],
             ['value' => 'pre_fight', 'label' => __('Pre Fight Training')],
