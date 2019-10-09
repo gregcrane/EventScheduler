@@ -85,7 +85,7 @@ class EventRequestRepository implements EventRequestRepositoryInterface
     {
         /** @var EventRequest $model */
         $model = $this->eventFactory->create();
-        $model = $this->resourceModel->load($model, $eventId);
+        $this->resourceModel->load($model, $eventId, 'entity_id');
         if (!$model->getId()) {
             throw new NoSuchEntityException(__('Event with id "%1" does not exist.', $eventId));
         }
@@ -181,7 +181,8 @@ class EventRequestRepository implements EventRequestRepositoryInterface
                 EventRequestInterface::START_TIME  => $event->getStartTime(),
                 EventRequestInterface::END_TIME    => $event->getEndTime(),
                 EventRequestInterface::DATE        => $event->getDate(),
-                EventRequestInterface::MESSAGE     => $event->getMessage()
+                EventRequestInterface::MESSAGE     => $event->getMessage(),
+                EventRequestInterface::WEEKDAY     => $event->getWeekday()
             ]
         );
 

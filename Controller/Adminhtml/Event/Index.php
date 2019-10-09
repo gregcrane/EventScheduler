@@ -9,15 +9,13 @@ namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\Page;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
- * Class Index
- *
- * @package LeviathanStudios\Scheduler\Controller\Adminhtml\Event
+ * Index controller class used for setting up the event grid.
  */
 class Index extends Action
 {
@@ -28,10 +26,8 @@ class Index extends Action
      */
     const ADMIN_RESOURCE = 'LeviathanStudios_Scheduler::scheduler';
 
-    /**
-     * @var bool|PageFactory
-     */
-    protected $resultPageFactory = false;
+    /** @var PageFactory $resultPageFactory */
+    private $resultPageFactory;
 
     /**
      * @param Context     $context
@@ -46,12 +42,16 @@ class Index extends Action
     }
 
     /**
+     * Load the event scheduler grid page.
+     *
      * @return ResponseInterface|ResultInterface|Page
      */
     public function execute()
     {
+        /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend((__('Event Scheduler')));
+        $resultPage->setActiveMenu('LeviathanStudios_Scheduler::container');
 
         return $resultPage;
     }

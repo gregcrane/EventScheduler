@@ -18,7 +18,7 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
- * Controller responsible for deleting and event.
+ * Controller class responsible for deleting an event.
  */
 class Delete extends Action implements HttpGetActionInterface
 {

@@ -23,6 +23,7 @@ interface EventRequestInterface
     const END_TIME    = 'end_time';
     const DATE        = 'date';
     const MESSAGE     = 'message';
+    const WEEKDAY     = 'weekday';
 
     /**
      * Get the row id.
@@ -100,6 +101,13 @@ interface EventRequestInterface
      * @return string|null
      */
     public function getMessage();
+
+    /**
+     * Get the weekday.
+     *
+     * @return string|null
+     */
+    public function getWeekday();
 
     /**
      * Set the row id.
@@ -188,4 +196,12 @@ interface EventRequestInterface
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
      */
     public function setMessage($message);
+
+    /**
+     * Set the weekday.
+     *
+     * @param $weekday
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setWeekday($weekday);
 }

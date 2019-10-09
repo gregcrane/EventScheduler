@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
 
+use LeviathanStudios\Scheduler\Api\Data\EventRequestInterface;
 use LeviathanStudios\Scheduler\Api\EventRequestRepositoryInterface;
-use LeviathanStudios\Scheduler\Model\EventRequest;
 use LeviathanStudios\Scheduler\Model\EventRequestFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
@@ -21,7 +21,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
- * Edit controller class used for setting up a blank or populated admin form.
+ * Controller class used for setting up a blank or populated admin event edit form.
  */
 class Edit extends Action implements HttpGetActionInterface
 {
@@ -74,7 +74,7 @@ class Edit extends Action implements HttpGetActionInterface
     {
         if ($id = $this->getRequest()->getParam('entity_id')) {
             try {
-                /** @var EventRequest $model */
+                /** @var EventRequestInterface $model */
                 $model = $this->eventRepository->getById($id);
                 if (!$model->getId()) {
                     $this->messageManager->addErrorMessage(__('This event no longer exists.'));

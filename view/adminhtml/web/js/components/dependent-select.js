@@ -3,6 +3,10 @@
  * @author      Grey Crane <gmc31886@gmail.com>
  */
 
+/**
+ * Select component that has dependent inputs that can be hidden
+ * or displayed depending on which select option is chosen.
+ */
 define([
     'Magento_Ui/js/form/element/select',
     'uiRegistry',
@@ -20,6 +24,30 @@ define([
          */
         onUpdate: function (value) {
             this.toggleDependency(value);
+        },
+
+        /**
+         * Matches specified value with existing options
+         * or, if value is not specified, returns value of the first option.
+         *
+         * @returns {*}
+         */
+        normalizeData: function () {
+            var value = this._super(),
+                option;
+
+            if (value !== '') {
+                option = this.getOption(value);
+
+                // run our custom function here is there is a preset value.
+                this.toggleDependency(value);
+
+                return option && option.value;
+            }
+
+            if (!this.caption()) {
+                return findFirst(this.options);
+            }
         },
 
         /**

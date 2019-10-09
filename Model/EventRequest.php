@@ -154,6 +154,16 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     }
 
     /**
+     * Get Weekday.
+     *
+     * @return mixed|string|null
+     */
+    public function getWeekday()
+    {
+        return parent::getData(self::WEEKDAY);
+    }
+
+    /**
      * Set the row id.
      *
      * @param $entityId
@@ -273,5 +283,16 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     public function setMessage($message)
     {
         return $this->setData(self::MESSAGE, $message);
+    }
+
+    /**
+     * Set the weekday.
+     *
+     * @param $weekday
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setWeekday($weekday)
+    {
+        return $this->setData(self::WEEKDAY, $weekday);
     }
 }

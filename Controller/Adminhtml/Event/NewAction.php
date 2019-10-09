@@ -17,8 +17,6 @@ use Magento\Framework\Controller\ResultInterface;
 
 /**
  * Controller class used for forwarding the user to the edit page
- *
- * @package LeviathanStudios\Scheduler\Controller\Adminhtml\Event
  */
 class NewAction extends Action
 {
@@ -29,10 +27,8 @@ class NewAction extends Action
      */
     const ADMIN_RESOURCE = 'LeviathanStudios_Scheduler::scheduler';
 
-    /**
-     * @var ForwardFactory $resultForwardFactory
-     */
-    protected $resultForwardFactory;
+    /** @var ForwardFactory $resultForwardFactory */
+    private $resultForwardFactory;
 
     /**
      * @param Context        $context
@@ -47,7 +43,7 @@ class NewAction extends Action
     }
 
     /**
-     * Forward to the edit page.
+     * Forward the user to the edit page.
      *
      * @return Redirect|ResponseInterface|ResultInterface
      */

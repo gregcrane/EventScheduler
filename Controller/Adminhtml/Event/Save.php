@@ -22,7 +22,7 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
- * Controller responsible for saving and event.
+ * Controller responsible for saving an event.
  */
 class Save extends Action
 {
@@ -79,8 +79,9 @@ class Save extends Action
         if ($data) {
             $data = $this->filterData($data);
 
-            if (!$this->dateCheck()) {
-
+            if (!$this->dateCheck($data)) {
+                $this->messageManager->addErrorMessage(__('Please fix the start/end dates.'));
+                return $resultRedirect->setPath('*/*/edit');
             }
 
             if ($id = $this->getRequest()->getParam('entity_id')) {
@@ -101,9 +102,9 @@ class Save extends Action
                 $this->eventRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the event.'));
                 $this->dataPersistor->clear('event');
-
+                $test = $this->getRequest()->getParams();
                 if ($this->getRequest()->getParam('back')) {
-                    return $resultRedirect->setPath('*/*/edit', ['id' => $model->getEntityId()]);
+                    return $resultRedirect->setPath('*/*/edit', ['entity_id' => $model->getEntityId()]);
                 }
 
                 return $resultRedirect->setPath('*/*/');
@@ -126,14 +127,18 @@ class Save extends Action
      */
     private function filterData($postData): array
     {
-        if (empty($data['entity_id'])) {
+        if (empty($postData['entity_id'])) {
             $postData['entity_id'] = null;
         }
 
-        if (empty($data['customer_id'])) {
+        if (empty($postData['customer_id'])) {
             $postData['customer_id'] = $this->getCustomerId($postData);
         }
 
+        /**
+         * do some custom work around the class events since these are
+         * reoccurring.
+         */
         if (key_exists('type', $postData) && $postData['type'] == 'class') {
             $postData['email']     = 'N/A';
             $postData['telephone'] = 'N/A';
@@ -141,7 +146,7 @@ class Save extends Action
             $postData['weekday']   = date('l', strtotime($postData['start_time']));
         }
 
-        $postData['date'] = getDate($postData['start_time']);
+        $postData['date'] = date('Y-m-d', strtotime($postData['start_time']));
 
         return $postData;
     }
@@ -177,10 +182,14 @@ class Save extends Action
      */
     private function dateCheck($postData): bool
     {
-        $flag = true;
+        $flag = false;
+
         if (key_exists('start_time', $postData) && key_exists('end_time', $postData)) {
-            $start = getDate($postData['start_time']);
-            $end   = getDate($postData['end_time']);
+            $start =  date('Y-m-d', strtotime($postData['start_time']));
+            $end   =  date('Y-m-d', strtotime($postData['end_time']));
+            if ($start == $end) {
+                $flag = true;
+            }
         }
 
         return $flag;
