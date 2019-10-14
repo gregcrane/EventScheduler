@@ -32,23 +32,23 @@ define([
          *
          * @returns {*}
          */
-        normalizeData: function () {
-            var value = this._super(),
-                option;
-
-            if (value !== '') {
-                option = this.getOption(value);
-
-                // run our custom function here is there is a preset value.
-                this.toggleDependency(value);
-
-                return option && option.value;
-            }
-
-            if (!this.caption()) {
-                return findFirst(this.options);
-            }
-        },
+        // normalizeData: function () {
+        //     var value = this._super(),
+        //         option;
+        //
+        //     if (value !== '') {
+        //         option = this.getOption(value);
+        //
+        //         // run our custom function here is there is a preset value.
+        //         this.toggleDependency(value);
+        //
+        //         return option && option.value;
+        //     }
+        //
+        //     if (!this.caption()) {
+        //         return findFirst(this.options);
+        //     }
+        // },
 
         /**
          * Toggle the visibility of inputs.

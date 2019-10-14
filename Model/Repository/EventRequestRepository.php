@@ -66,7 +66,7 @@ class EventRequestRepository implements EventRequestRepositoryInterface
     /**
      * @inheritdoc
      */
-    public function save(EventRequestInterface $event): EventRequestRepository
+    public function save(EventRequestInterface $event): EventRequestInterface
     {
         $model = $this->mapDataIntoModel($event);
         try {
@@ -75,7 +75,7 @@ class EventRequestRepository implements EventRequestRepositoryInterface
             throw new CouldNotSaveException(__('Could not save event'), $exception);
         }
 
-        return $this;
+        return $model;
     }
 
     /**

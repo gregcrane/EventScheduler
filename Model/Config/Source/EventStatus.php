@@ -15,6 +15,7 @@ use Magento\Framework\Data\OptionSourceInterface;
  */
 class EventStatus implements OptionSourceInterface
 {
+    /** @var int  */
     const CLASS_STATUS = 4;
 
     /**
@@ -30,7 +31,8 @@ class EventStatus implements OptionSourceInterface
             ['value' => 1, 'label' => __('Viewed')],
             ['value' => 2, 'label' => __('Accepted')],
             ['value' => 3, 'label' => __('Completed')],
-            ['value' => 4, 'label' => __('Reoccurring')]
+            ['value' => 4, 'label' => __('Reoccurring')],
+            ['value' => 5, 'label' => __('Rejected')]
         ];
     }
 }

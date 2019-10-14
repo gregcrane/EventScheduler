@@ -149,23 +149,38 @@
             </settings>
         </field>
 
-        <field name="start_time">
+        <field name="start_time" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">string</item>
                     <item name="label" xsi:type="string" translate="true">Start Time</item>
                     <item name="formElement" xsi:type="string">date</item>
-                    <item name="source" xsi:type="string">page</item>
+                    <item name="source" xsi:type="string">event</item>
                     <item name="sortOrder" xsi:type="number">70</item>
                     <item name="dataScope" xsi:type="string">start_time</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
                     <item name="options" xsi:type="array">
-                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
-                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="dateFormat" xsi:type="string">dd-MM-yy</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm</item>
                         <item name="showsTime" xsi:type="boolean">true</item>
                     </item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="calendar_buttons" component="LeviathanStudios_Scheduler/js/components/calendar-time">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">75</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string">Time Increments</item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                    <item name="elementTmpl" xsi:type="string">LeviathanStudios_Scheduler/event/form/buttons</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">popup</item>
+                    <item name="dataScope" xsi:type="string">click</item>
                 </item>
             </argument>
         </field>
@@ -176,17 +191,18 @@
                     <item name="dataType" xsi:type="string">string</item>
                     <item name="label" xsi:type="string" translate="true">End Time</item>
                     <item name="formElement" xsi:type="string">date</item>
-                    <item name="source" xsi:type="string">page</item>
+                    <item name="source" xsi:type="string">event</item>
                     <item name="sortOrder" xsi:type="number">80</item>
                     <item name="dataScope" xsi:type="string">end_time</item>
                     <item name="validation" xsi:type="array">
                         <item name="required-entry" xsi:type="boolean">true</item>
                     </item>
                     <item name="options" xsi:type="array">
-                        <item name="dateFormat" xsi:type="string">yyyy-MM-dd</item>
-                        <item name="timeFormat" xsi:type="string">HH:mm:ss</item>
+                        <item name="dateFormat" xsi:type="string">dd-MM-yy</item>
+                        <item name="timeFormat" xsi:type="string">HH:mm</item>
                         <item name="showsTime" xsi:type="boolean">true</item>
                     </item>
+                    <item name="disabled" xsi:type="boolean">true</item>
                 </item>
             </argument>
         </field>

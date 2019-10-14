@@ -79,13 +79,14 @@ class Save extends Action
         if ($data) {
             $data = $this->filterData($data);
 
-            if (!$this->dateCheck($data)) {
+            if (!$this->validateTime($data)) {
                 $this->messageManager->addErrorMessage(__('Please fix the start/end dates.'));
                 return $resultRedirect->setPath('*/*/edit');
             }
 
             if ($id = $this->getRequest()->getParam('entity_id')) {
                 try {
+                    /** @var EventRequest $model */
                     $model = $this->eventRepository->getById($id);
                 } catch (NoSuchEntityException $e) {
                     $this->messageManager->addErrorMessage(__('This event no longer exists.'));
@@ -99,10 +100,9 @@ class Save extends Action
             $model->setData($data);
 
             try {
-                $this->eventRepository->save($model);
+                $model = $this->eventRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the event.'));
                 $this->dataPersistor->clear('event');
-                $test = $this->getRequest()->getParams();
                 if ($this->getRequest()->getParam('back')) {
                     return $resultRedirect->setPath('*/*/edit', ['entity_id' => $model->getEntityId()]);
                 }
@@ -146,7 +146,7 @@ class Save extends Action
             $postData['weekday']   = date('l', strtotime($postData['start_time']));
         }
 
-        $postData['date'] = date('Y-m-d', strtotime($postData['start_time']));
+        $postData['date'] = date('d-m-Y', strtotime($postData['start_time']));
 
         return $postData;
     }
@@ -175,19 +175,25 @@ class Save extends Action
     }
 
     /**
-     * Determine if the start and end dates coincide.
+     * Determine if the start and end times are valid.
+     *
+     * Runs some validation to make sure the requests are:
+     * 1. on the same date
+     * 2. end time does no precede start time.
      *
      * @param $postData
      * @return bool
      */
-    private function dateCheck($postData): bool
+    private function validateTime($postData): bool
     {
         $flag = false;
 
         if (key_exists('start_time', $postData) && key_exists('end_time', $postData)) {
-            $start =  date('Y-m-d', strtotime($postData['start_time']));
-            $end   =  date('Y-m-d', strtotime($postData['end_time']));
-            if ($start == $end) {
+            $start     = date('d-m-Y', strtotime($postData['start_time']));
+            $end       = date('d-m-Y', strtotime($postData['end_time']));
+            $startTime = date('Y-m-d H:i:s', strtotime($postData['start_time']));
+            $endTime   = date('Y-m-d H:i:s', strtotime($postData['end_time']));
+            if ($start == $end && $startTime < $endTime) {
                 $flag = true;
             }
         }
