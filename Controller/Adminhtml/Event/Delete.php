@@ -20,7 +20,7 @@ use Magento\Framework\View\Result\PageFactory;
 /**
  * Controller class responsible for deleting an event.
  */
-class Delete extends Action implements HttpGetActionInterface
+class Delete extends Action
 {
     /**
      * Authorization level of a basic admin session

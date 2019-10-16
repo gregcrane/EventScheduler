@@ -10,7 +10,6 @@ namespace LeviathanStudios\Scheduler\Controller\Adminhtml\Event;
 use Magento\Backend\App\Action;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\ResponseInterface as FrameworkResponse;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
@@ -18,7 +17,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\View\Result\PageFactory;
 
 
-class Purge extends Action implements HttpGetActionInterface
+class Purge extends Action
 {
     /**
      * Authorization level of a basic admin session

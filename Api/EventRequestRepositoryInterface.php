@@ -28,7 +28,6 @@ interface EventRequestRepositoryInterface
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestResultInterface
-     * @throws \Magento\Framework\Exception\CouldNotDeleteException
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
 

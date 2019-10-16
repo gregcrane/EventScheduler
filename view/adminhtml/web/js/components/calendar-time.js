@@ -14,8 +14,8 @@ define([
         initialize: function () {
             this._super();
             $('.scheduler-event-edit').on('click', '.time-button', function() {
-                let startElement = uiRegistry.get('index = start_time');
-                let endElement = uiRegistry.get('index = end_time');
+                let startElement = uiRegistry.get('index = start_time_stamp');
+                let endElement = uiRegistry.get('index = end_time_stamp');
                 let uid = 'notice-' + endElement.uid;
 
                 if (startElement.value()) {

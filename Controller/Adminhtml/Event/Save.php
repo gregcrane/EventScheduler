@@ -11,6 +11,7 @@ use LeviathanStudios\Scheduler\Api\EventRequestRepositoryInterface;
 use LeviathanStudios\Scheduler\Model\Config\Source\EventStatus;
 use LeviathanStudios\Scheduler\Model\EventRequest;
 use LeviathanStudios\Scheduler\Model\EventRequestFactory;
+use LeviathanStudios\Scheduler\Model\Validation\Validator;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\Model\View\Result\Redirect;
@@ -20,6 +21,7 @@ use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Serialize\Serializer\Json;
 
 /**
  * Controller responsible for saving an event.
@@ -43,7 +45,13 @@ class Save extends Action
     private $customerRepository;
 
     /** @var DataPersistorInterface $dataPersistor */
-    protected $dataPersistor;
+    private $dataPersistor;
+
+    /** @var Validator $validator */
+    private $validator;
+
+    /** @var Json $jsonSerializer */
+    private $jsonSerializer;
 
     /**
      * @param Context                         $context
@@ -51,18 +59,24 @@ class Save extends Action
      * @param EventRequestFactory             $eventFactory
      * @param CustomerRepositoryInterface     $customerRepository
      * @param DataPersistorInterface          $dataPersistor
+     * @param Validator                       $validator
+     * @param Json                            $jsonSerializer
      */
     public function __construct(
         Context $context,
         EventRequestRepositoryInterface $eventRepository,
         EventRequestFactory $eventFactory,
         CustomerRepositoryInterface $customerRepository,
-        DataPersistorInterface $dataPersistor
+        DataPersistorInterface $dataPersistor,
+        Validator $validator,
+        Json $jsonSerializer
     ) {
         $this->eventRepository    = $eventRepository;
         $this->eventFactory       = $eventFactory;
         $this->customerRepository = $customerRepository;
         $this->dataPersistor      = $dataPersistor;
+        $this->validator          = $validator;
+        $this->jsonSerializer     = $jsonSerializer;
         parent::__construct($context);
     }
 
@@ -82,6 +96,21 @@ class Save extends Action
             if (!$this->validateTime($data)) {
                 $this->messageManager->addErrorMessage(__('Please fix the start/end dates.'));
                 return $resultRedirect->setPath('*/*/edit');
+            }
+
+            $dateValidation = $this->validator->validateDate($data);
+            if (!$dateValidation['result']) {
+                foreach ($dateValidation['messages'] as $message) {
+                    $this->messageManager->addErrorMessage($message);
+                }
+                if ($data['entity_id']) {
+                    return $resultRedirect->setPath('*/*/edit', ['entity_id' => $data['entity_id']]);
+                } else { // todo populate this data on the form
+                    return $resultRedirect->setPath(
+                        '*/*/edit',
+                        ['failed_data' => $this->jsonSerializer->serialize($data)]
+                    );
+                }
             }
 
             if ($id = $this->getRequest()->getParam('entity_id')) {
@@ -143,10 +172,12 @@ class Save extends Action
             $postData['email']     = 'N/A';
             $postData['telephone'] = 'N/A';
             $postData['status']    = EventStatus::CLASS_STATUS;
-            $postData['weekday']   = date('l', strtotime($postData['start_time']));
+            $postData['weekday']   = date('l', strtotime($postData['start_time_stamp']));
         }
 
-        $postData['date'] = date('d-m-Y', strtotime($postData['start_time']));
+        $postData['date']       = date('Y-m-d', strtotime($postData['start_time_stamp']));
+        $postData['start_time'] = date('H:i', strtotime($postData['start_time_stamp']));
+        $postData['end_time']   = date('H:i', strtotime($postData['end_time_stamp']));
 
         return $postData;
     }
@@ -188,11 +219,11 @@ class Save extends Action
     {
         $flag = false;
 
-        if (key_exists('start_time', $postData) && key_exists('end_time', $postData)) {
-            $start     = date('d-m-Y', strtotime($postData['start_time']));
-            $end       = date('d-m-Y', strtotime($postData['end_time']));
-            $startTime = date('Y-m-d H:i:s', strtotime($postData['start_time']));
-            $endTime   = date('Y-m-d H:i:s', strtotime($postData['end_time']));
+        if (key_exists('start_time_stamp', $postData) && key_exists('end_time_stamp', $postData)) {
+            $start     = date('d-m-Y', strtotime($postData['start_time_stamp']));
+            $end       = date('d-m-Y', strtotime($postData['end_time_stamp']));
+            $startTime = date('Y-m-d H:i:s', strtotime($postData['start_time_stamp']));
+            $endTime   = date('Y-m-d H:i:s', strtotime($postData['end_time_stamp']));
             if ($start == $end && $startTime < $endTime) {
                 $flag = true;
             }

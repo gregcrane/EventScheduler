@@ -124,6 +124,16 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     }
 
     /**
+     * Get the event start timestamp.
+     *
+     * @return mixed
+     */
+    public function getStartTimeStamp()
+    {
+        return parent::getData(self::START_TIME_STAMP);
+    }
+
+    /**
      * Get the event end time.
      *
      * @return mixed
@@ -131,6 +141,16 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     public function getEndTime()
     {
         return parent::getData(self::END_TIME);
+    }
+
+    /**
+     * Get the event end timestamp.
+     *
+     * @return mixed
+     */
+    public function getEndTimeStamp()
+    {
+        return parent::getData(self::END_TIME_STAMP);
     }
 
     /**
@@ -253,6 +273,17 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     }
 
     /**
+     * Set the event start timestamp.
+     *
+     * @param $time
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setStartTimeStamp($time)
+    {
+        return $this->setData(self::START_TIME_STAMP, $time);
+    }
+
+    /**
      * Set the event end time.
      *
      * @param $time
@@ -261,6 +292,17 @@ class EventRequest extends AbstractModel implements EventRequestInterface, Ident
     public function setEndTime($time)
     {
         return $this->setData(self::END_TIME, $time);
+    }
+
+    /**
+     * Set the event end timestamp.
+     *
+     * @param $time
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setEndTimeStamp($time)
+    {
+        return $this->setData(self::END_TIME_STAMP, $time);
     }
 
     /**

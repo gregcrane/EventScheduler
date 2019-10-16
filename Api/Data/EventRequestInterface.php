@@ -12,18 +12,20 @@ namespace LeviathanStudios\Scheduler\Api\Data;
  */
 interface EventRequestInterface
 {
-    const ENTITY_ID   = 'entity_id';
-    const TYPE        = 'type';
-    const CUSTOMER_ID = 'customer_id';
-    const STATUS      = 'status';
-    const NAME        = 'name';
-    const EMAIL       = 'email';
-    const TELEPHONE   = 'telephone';
-    const START_TIME  = 'start_time';
-    const END_TIME    = 'end_time';
-    const DATE        = 'date';
-    const MESSAGE     = 'message';
-    const WEEKDAY     = 'weekday';
+    const ENTITY_ID        = 'entity_id';
+    const TYPE             = 'type';
+    const CUSTOMER_ID      = 'customer_id';
+    const STATUS           = 'status';
+    const NAME             = 'name';
+    const EMAIL            = 'email';
+    const TELEPHONE        = 'telephone';
+    const START_TIME       = 'start_time';
+    const START_TIME_STAMP = 'start_time_stamp';
+    const END_TIME         = 'end_time';
+    const END_TIME_STAMP   = 'end_time_stamp';
+    const DATE             = 'date';
+    const MESSAGE          = 'message';
+    const WEEKDAY          = 'weekday';
 
     /**
      * Get the row id.
@@ -82,11 +84,25 @@ interface EventRequestInterface
     public function getStartTime();
 
     /**
+     * Get the event start timestamp.
+     *
+     * @return mixed
+     */
+    public function getStartTimeStamp();
+
+    /**
      * Get the event end time.
      *
      * @return mixed
      */
     public function getEndTime();
+
+    /**
+     * Get the event end timestamp.
+     *
+     * @return mixed
+     */
+    public function getEndTimeStamp();
 
     /**
      * Get the event date.
@@ -174,12 +190,28 @@ interface EventRequestInterface
     public function setStartTime($time);
 
     /**
+     * Set the event start timestamp.
+     *
+     * @param $time
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setStartTimeStamp($time);
+
+    /**
      * Set the event end time.
      *
      * @param $time
      * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
      */
     public function setEndTime($time);
+
+    /**
+     * Set the event end timestamp.
+     *
+     * @param $time
+     * @return \LeviathanStudios\Scheduler\Api\Data\EventRequestInterface
+     */
+    public function setEndTimeStamp($time);
 
     /**
      * Set the event date.

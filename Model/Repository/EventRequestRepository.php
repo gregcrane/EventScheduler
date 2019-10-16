@@ -171,18 +171,20 @@ class EventRequestRepository implements EventRequestRepositoryInterface
         $model = $this->eventFactory->create();
         $model->setData(
             [
-                EventRequestInterface::ENTITY_ID   => $event->getId(),
-                EventRequestInterface::TYPE        => $event->getType(),
-                EventRequestInterface::CUSTOMER_ID => $event->getCustomerId(),
-                EventRequestInterface::STATUS      => $event->getStatus(),
-                EventRequestInterface::NAME        => $event->getName(),
-                EventRequestInterface::EMAIL       => $event->getEmail(),
-                EventRequestInterface::TELEPHONE   => $event->getTelephone(),
-                EventRequestInterface::START_TIME  => $event->getStartTime(),
-                EventRequestInterface::END_TIME    => $event->getEndTime(),
-                EventRequestInterface::DATE        => $event->getDate(),
-                EventRequestInterface::MESSAGE     => $event->getMessage(),
-                EventRequestInterface::WEEKDAY     => $event->getWeekday()
+                EventRequestInterface::ENTITY_ID        => $event->getId(),
+                EventRequestInterface::TYPE             => $event->getType(),
+                EventRequestInterface::CUSTOMER_ID      => $event->getCustomerId(),
+                EventRequestInterface::STATUS           => $event->getStatus(),
+                EventRequestInterface::NAME             => $event->getName(),
+                EventRequestInterface::EMAIL            => $event->getEmail(),
+                EventRequestInterface::TELEPHONE        => $event->getTelephone(),
+                EventRequestInterface::START_TIME       => $event->getStartTime(),
+                EventRequestInterface::START_TIME_STAMP => $event->getStartTimeStamp(),
+                EventRequestInterface::END_TIME         => $event->getEndTime(),
+                EventRequestInterface::END_TIME_STAMP   => $event->getEndTimeStamp(),
+                EventRequestInterface::DATE             => $event->getDate(),
+                EventRequestInterface::MESSAGE          => $event->getMessage(),
+                EventRequestInterface::WEEKDAY          => $event->getWeekday()
             ]
         );
 

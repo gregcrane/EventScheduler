@@ -19,9 +19,10 @@
                 comment="Customer Full Name"/>
         <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email"/>
         <column xsi:type="varchar" name="telephone" nullable="true" length="128" comment="Phone Number"/>
-        <column xsi:type="datetime" name="start_time" nullable="false" default="CURRENT_TIMESTAMP"
-                comment="Start Time"/>
-        <column xsi:type="datetime" name="end_time" nullable="false" default="CURRENT_TIMESTAMP" comment="End Time"/>
+        <column xsi:type="text" name="start_time" nullable="false" comment="Start Time"/>
+        <column xsi:type="datetime" name="start_time_stamp" nullable="false" comment="Start Time Stamp"/>
+        <column xsi:type="text" name="end_time" nullable="false" comment="End Time"/>
+        <column xsi:type="datetime" name="end_time_stamp" nullable="false" comment="End Time Stamp"/>
         <column xsi:type="date" name="date" nullable="false" comment="Date"/>
         <column xsi:type="text" name="message" nullable="true" comment="Customer Message"/>
         <column xsi:type="text" name="weekday" nullable="true" comment="Weekday"/>

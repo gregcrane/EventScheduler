@@ -18,6 +18,7 @@ use Magento\Framework\App\ResponseInterface as FrameworkResponse;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\View\Result\PageFactory;
 
 /**
@@ -44,25 +45,31 @@ class Edit extends Action implements HttpGetActionInterface
     /** @var EventRequestFactory $eventFactory */
     private $eventFactory;
 
+    /** @var Json $jsonSerializer */
+    private $jsonSerializer;
+
     /**
      * @param Action\Context                  $context
      * @param PageFactory                     $resultPageFactory
      * @param JsonFactory                     $resultJsonFactory
      * @param EventRequestRepositoryInterface $eventRepository
      * @param EventRequestFactory             $eventFactory
+     * @param Json                            $jsonSerializer
      */
     public function __construct(
         Action\Context $context,
         PageFactory $resultPageFactory,
         JsonFactory $resultJsonFactory,
         EventRequestRepositoryInterface $eventRepository,
-        EventRequestFactory $eventFactory
+        EventRequestFactory $eventFactory,
+        Json $jsonSerializer
     ) {
         parent::__construct($context);
         $this->resultPageFactory = $resultPageFactory;
         $this->resultJsonFactory = $resultJsonFactory;
         $this->eventRepository   = $eventRepository;
         $this->eventFactory      = $eventFactory;
+        $this->jsonSerializer    = $jsonSerializer;
     }
 
     /**
@@ -88,6 +95,9 @@ class Edit extends Action implements HttpGetActionInterface
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
             }
+        } elseif ($data = $this->getRequest()->getParam('failed_date')) {
+            // todo: move this to DataProvider?
+            $data = $this->jsonSerializer->unserialize($data);
         }
 
         /** @var Page $resultPage */

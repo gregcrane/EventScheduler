@@ -6,9 +6,12 @@
             "customer_id": true,
             "status": true,
             "name": true,
-            "last_name": true,
             "email": true,
             "telephone": true,
+            "start_time": true,
+            "start_time_stamp": true,
+            "end_time": true,
+            "end_time_stamp": true,
             "date": true,
             "message": true,
             "weekday": true

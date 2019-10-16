@@ -30,6 +30,7 @@ define([
          * Matches specified value with existing options
          * or, if value is not specified, returns value of the first option.
          *
+         * todo:
          * @returns {*}
          */
         // normalizeData: function () {
